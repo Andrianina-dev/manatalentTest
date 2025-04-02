@@ -1,4 +1,6 @@
-const pool = require('../config/db');
+// const pool = require('../config/db');
+
+const { getPool } = require('../config/db'); // ou le chemin vers ton fichier de connexion
 
 
 exports.updateUser = async (updateFields, userId) => {
@@ -40,10 +42,10 @@ exports.createUser = async ({ name,firstName, email, password }) => {
   return user[0];
 };
 
+
 exports.getAllUsers = async () => {
-  const connection = await pool.getConnection();
-  const [rows] = await connection.execute('SELECT * FROM user');
-  connection.release();
+  const pool = getPool();
+  const [rows] = await pool.execute('SELECT * FROM user');
   return rows;
 };
 
